@@ -5,71 +5,12 @@ module ipv6 {
   import tailf-common {
     prefix tailf;
   }
+  import input_output {
+    prefix input_output;
+  }
   grouping ipv6 {
-
     container IPv6 {
-      tailf:action audit {
-        tailf:actionpoint audit;
-        tailf:info "Audit for v6";
-
-        input {
-          leaf Device_group {
-            type string;
-            mandatory true;
-            tailf:info "Name of the Device_Group to have audited.";
-          }
-        }
-
-        output {
-          leaf start_time {
-            type string;
-          }
-          leaf end_time {
-            type string;
-          }
-          leaf run_time {
-            type string;
-          }
-          leaf result {
-            type string;
-          }
-          leaf success_percent {
-            type string;
-          }
-        }
-      }
-      tailf:action remediate {
-        tailf:actionpoint audit;
-        tailf:info "Remediate";
-        input {
-          leaf Device_Group {
-            type string;
-            mandatory true;
-            tailf:info "Device Group";
-          }
-        }
-
-        output {
-          leaf start_time {
-            type string;
-            mandatory true;
-          }
-          leaf end_time {
-            type string;
-            mandatory true;
-          }
-          leaf run_time {
-            type string;
-            mandatory true;
-          }
-          leaf result {
-            type string;
-          }
-          leaf success_percent {
-            type string;
-          }
-        }
-       }
+      uses input_output:input_output;
       }
     }
   }

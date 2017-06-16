@@ -1,4 +1,3 @@
-
 module your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
   namespace "http://example.com/your_audit_name_here"; // Change this to your audits name, this needs to be the same everywhere
   prefix your_audit_name_here; // Change this to your audits name, this needs to be the same everywhere
@@ -6,75 +5,13 @@ module your_audit_name_here { // Change this to your audits name, this needs to 
   import tailf-common {
     prefix tailf;
   }
+  import input_output {
+    prefix input_output;
+  }
+
   grouping your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
     container your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
-      tailf:action audit {
-        tailf:actionpoint audit;
-        tailf:info "Audit"; // Put in your own description of the use case here
-
-        // DO NOT CHANGE THE INPUTS AND OUTPUTS
-        input {
-          leaf Device_group {
-            type string;
-            mandatory true;
-            tailf:info "Name of the Service to have remediated.";
-          }
-        }
-
-        output {
-          leaf start_time {
-            type string;
-            mandatory true;
-          }
-          leaf end_time {
-            type string;
-            mandatory true;
-          }
-          leaf run_time {
-            type string;
-            mandatory true;
-          }
-          leaf result {
-            type string;
-          }
-          leaf success_percent {
-            type string;
-          }
-        }
-      }
-      // DO NOT CHANGE THE ACTION NAMES OR INPUTS & OUTPUTS
-      tailf:action remediate {
-        tailf:actionpoint audit;
-        tailf:info "Remediate";
-        input {
-          leaf test {
-            type string;
-            mandatory true;
-            tailf:info "Name of the Service to have remediated.";
-          }
-        }
-
-        output {
-          leaf start_time {
-            type string;
-            mandatory true;
-          }
-          leaf end_time {
-            type string;
-            mandatory true;
-          }
-          leaf run_time {
-            type string;
-            mandatory true;
-          }
-          leaf result {
-            type string;
-          }
-          leaf success_percent {
-            type string;
-          }
-        }
-       }
+      uses input_output:input_output;
       }
     }
   }

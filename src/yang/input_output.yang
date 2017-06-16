@@ -1,0 +1,79 @@
+// DO NOT MODIFY THIS FILE
+
+module input_output {
+  namespace "http://example.com/input_output";
+  prefix input_output;
+
+  import tailf-common {
+    prefix tailf;
+  }
+  grouping input_output {
+  tailf:action audit {
+    tailf:actionpoint audit;
+    tailf:info "Audit";
+
+    // DO NOT CHANGE THE INPUTS AND OUTPUTS
+    input {
+      leaf Device_group {
+        type string;
+        mandatory true;
+        tailf:info "Audit for the use case.";
+      }
+    }
+
+    output {
+      leaf start_time {
+        type string;
+        mandatory true;
+      }
+      leaf end_time {
+        type string;
+        mandatory true;
+      }
+      leaf run_time {
+        type string;
+        mandatory true;
+      }
+      leaf result {
+        type string;
+      }
+      leaf success_percent {
+        type string;
+      }
+    }
+  }
+  // DO NOT CHANGE THE ACTION NAMES OR INPUTS & OUTPUTS
+  tailf:action remediate {
+    tailf:actionpoint audit;
+    tailf:info "Remediation for the use case.";
+    input {
+      leaf Device_group {
+        type string;
+        mandatory true;
+        tailf:info "NSO Device Group";
+      }
+    }
+
+    output {
+      leaf start_time {
+        type string;
+        mandatory true;
+      }
+      leaf end_time {
+        type string;
+        mandatory true;
+      }
+      leaf run_time {
+        type string;
+        mandatory true;
+      }
+      leaf result {
+        type string;
+      }
+      leaf success_percent {
+        type string;
+      }
+    }
+   }
+ }
+}
