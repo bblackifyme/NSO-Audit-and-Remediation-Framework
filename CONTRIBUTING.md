@@ -2,6 +2,13 @@
 
 Follow this guide for developing a new use case withing the Audit-andRemediation framework.
 
+<br>
+
+<img src="https://cdn.meme.am/cache/instances/folder832/500x/72340832/coffee-pentagram-its-time-to-code.jpg">
+
+<br>
+
+
 High Level Steps:
 1. git clone the repo
 2. create a new freature branch
