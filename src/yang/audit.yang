@@ -1,0 +1,24 @@
+// Please note, DO NOT CHANGE ANYTHING OTHER THAN ADDING YOUR LINES.
+// If changes are made there will be "merge conflicts" and you will have to correct what you did!
+
+module Audits {
+  namespace "http://example.com/actions";
+  prefix audits;
+
+  import tailf-common {
+    prefix tailf;
+  }
+  import ipv6 { prefix ipv6; }
+
+  // import your_audit_name_here { prefix your_audit_name_here; }
+  // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
+
+  description "Module to store audit actions";
+
+  container Audits {
+    uses ipv6:ipv6;
+
+    // uses your_audit_name_here:your_audit_name_here;
+    // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
+  }
+}
