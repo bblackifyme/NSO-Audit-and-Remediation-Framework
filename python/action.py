@@ -9,7 +9,9 @@ See the README file for more information
 from __future__ import print_function
 import sys
 import ipv6
-import your_audit_name_here # Change this to the name of your Python File
+
+
+# import your_audit_name_here # Copy and change this to the name of your Python File
 
 import ncs
 import _ncs
@@ -42,7 +44,7 @@ class ActionHandler(Action):
             # Log & return general failures
             self.log.debug("got bad operation: {0}".format(name))
             return _ncs.CONFD_ERR
-            
+
         ##################################################################
         #                                                                #
         #   To add your feature/use case copy the code snippet below.    #

@@ -36,6 +36,8 @@ def ipv6(self, kp, input, name, output):
         end = (datetime.strptime(str(datetime.now().time()), date_format))
         output.end_time = time.strftime("%H:%M:%S")
         output.run_time = str(end-start)
+        output.success_percent = "100%" #CHANGE to your success metric
+
     elif name == "remediate":
         start = (datetime.strptime(str(datetime.now().time()), date_format))
         output.start_time = time.strftime("%H:%M:%S")
@@ -48,4 +50,6 @@ def ipv6(self, kp, input, name, output):
         end = (datetime.strptime(str(datetime.now().time()), date_format))
         output.end_time = time.strftime("%H:%M:%S")
         output.run_time = str(end-start)
+        output.success_percent = "100%" #CHANGE to your success metric
+        
     return output

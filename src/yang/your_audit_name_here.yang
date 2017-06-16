@@ -1,5 +1,5 @@
 module your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
-  namespace "http://example.com/your_audit_name_here"; // Change this to your audits name, this needs to be the same everywhere
+  namespace "http://example.com/your_audit_name_here"; // Change "your_audit_name_here" to your audits name, this needs to be the same everywhere
   prefix your_audit_name_here; // Change this to your audits name, this needs to be the same everywhere
 
   import tailf-common {
@@ -8,7 +8,6 @@ module your_audit_name_here { // Change this to your audits name, this needs to 
   import input_output {
     prefix input_output;
   }
-
   grouping your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
     container your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
       uses input_output:input_output;

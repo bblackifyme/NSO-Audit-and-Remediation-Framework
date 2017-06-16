@@ -10,14 +10,13 @@ The project provides standardized templates and guidelines for developing a new 
 It is packages such that a developer or network engineer can easy leverage the templates and simply leverage "Add your code here" sections to add new features. Once complete, the new feature goes through code review and system regression testing before being moved onto prod NSO.
 
 Developers:
-Brandon Black : branblac@cisco.com
+Brandon Black branblac@cisco.com
 
 ### Development Environment
 
 Developed on: NCS-4.4
 
 NO NED Dependencies
-
 
 ## Usage
 
@@ -33,38 +32,34 @@ EXAMPLES:
 ### CLI example
 *TO BE UPDATED*
 
-CLI example to execute audits and remediations:
+CLI example to view available audits and remediations:
+
 ```bash
-branblac@ncs# Service-Remediation Remediate Service_Name ubvpn disregard_out_of_sync false
-start_time 22:39:06
-end_time 22:39:08
-run_time 0:00:01.874675
-result ['rem-test remediation successful.']
+branblac@ncs# Audits ?
+Possible completions:
+  IPv6
 ```
+
 
 ### REST Payload
 *TO BE UPDATED*
 
 REST example to execute audits and remediations:
 
-REST endpoint: `nso-server:8888/api/running/TBD`
+View the available Audits:
 
-POST:
-```xml
-<input>
-<Service_Name>ubvpn</Service_Name>
-</input>
-```
+GET: `nso-server:8888/api/running/Audits`
 
 Result:
 ```xml
-<output xmlns='http://example.com/actions'>
-    <start_time>09:11:36</start_time>
-    <end_time>09:11:38</end_time>
-    <run_time>0:00:01.739125</run_time>
-    <result>['rem-test remediation successful.']</result>
-    <success_percent>100</success_percent>
-</output>
+<Audits xmlns="http://example.com/actions" xmlns:y="http://tail-f.com/ns/rest"  xmlns:audits="http://example.com/actions">
+    <IPv6>
+        <y:operations>
+            <audit>/api/running/Audits/IPv6/_operations/audit</audit>
+            <remediate>/api/running/Audits/IPv6/_operations/remediate</remediate>
+        </y:operations>
+    </IPv6>
+</Audits>
 ```
 
 
@@ -76,13 +71,29 @@ The documentation in this README provides details into the packages workings, fo
 
 #### Model Logic
 
-To be Updated
+The Framework Yang consists of 3 pieces.
 
+1. `audit.yang` - Wrapper model for all audits. New use cases need to be added into this YANG to register them in NSO.
+2. `input_output.yang` - Yang grouping to enforce standard input and output fields for all use cases
 
-#### Model Components
+3. `your_audit_name_here.yang` - Template (ie name changes) that registers the new use case audit & remediate actions into the framework. Imports and uses the `input_output.yang` model.
 
-To be updated
 
 ### Code Logic
 
-TO be updated.
+The Python directory of the project contains the framework code and use case code.
+
+The framework is contained inside `action.py` and is the code that is registered inside NSO. When audits & remediations are called this module is called.
+
+Inside the `cb_action` method of the `ActionHandler` class is where the user module is registered.
+
+We register the user code by adding an elif block to check what use case is being called. We do this by checking the keypath of the request:
+
+```python
+if str(kp) == "/audits:Audits/IPv6":
+        output = ipv6.ipv6(self, kp, input, name, output)
+```
+
+This example is checking for the "IPv6" use case. We then set the output to the returned output object from the use case code. The use case takes the input and executes its audit or remediate functions per the use case requirements and sets the results.
+
+Once complete. The results are returned to NSO and returned to the user.
