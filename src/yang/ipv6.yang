@@ -10,7 +10,16 @@ module ipv6 {
   }
   grouping ipv6 {
     container IPv6 {
-      uses input_output:input_output;
+      tailf:info "IPv6 related audits";
+      // Configlet # 1
+      container igmp {
+        tailf:info "audit to check that ip igmp v3 set on VLAN 10 and gi0/0/0.10";
+        uses input_output:input_output;
+        }
+      // Configlet # 2
+      container L3_ip_pim {
+        uses input_output:input_output;
+        }
       }
     }
   }

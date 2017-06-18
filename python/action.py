@@ -10,9 +10,7 @@ from __future__ import print_function
 import sys
 import ipv6
 
-
 # import your_audit_name_here # Copy and change this to the name of your Python File
-
 import ncs
 import _ncs
 import _ncs.dp
@@ -38,7 +36,7 @@ class ActionHandler(Action):
         """
         #TODO determine logging standards
 
-        if str(kp) == "/audits:Audits/IPv6":
+        if "/audits:Audits/IPv6" in str(kp):
             output = ipv6.ipv6(self, kp, input, name, output)
         else:
             # Log & return general failures
