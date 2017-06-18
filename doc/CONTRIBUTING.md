@@ -87,7 +87,7 @@ Save the file.
 
 Open up the `audit.yang` file. **DO NOT RENAME THIS FILE**
 
-> IMPORTANT! **DO NOT** change anything not instructed to do in this guide. Any modules with extra changes **WILL BE REJECTED AT CODE REVIEW**
+> IMPORTANT! **DO NOT** change anything not instructed to do in this guide. Any modules with extra changes **WILL BE REJECTED AT CODE REVIEW** improvements are always appreciated, but should not be made from a module :)
 
 Follow the instructions in the files comments, using ipv6 as an example use case that has been completed.
 

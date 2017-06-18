@@ -1,6 +1,6 @@
 # NSO Audit & Remediation Framework
 
-> Currently a WORK IN PROGRESS version 0.1
+> Currently a WORK IN PROGRESS version 0.2
 
 ## Package Description
 
@@ -51,15 +51,25 @@ View the available Audits:
 GET: `nso-server:8888/api/running/Audits`
 
 Result:
-```xml
-<Audits xmlns="http://example.com/actions" xmlns:y="http://tail-f.com/ns/rest"  xmlns:audits="http://example.com/actions">
-    <IPv6>
-        <y:operations>
-            <audit>/api/running/Audits/IPv6/_operations/audit</audit>
-            <remediate>/api/running/Audits/IPv6/_operations/remediate</remediate>
-        </y:operations>
-    </IPv6>
-</Audits>
+```json
+{
+    "Audits:Audits": {
+        "IPv6": {
+            "igmp": {
+                "operations": {
+                    "audit": "/api/running/Audits/IPv6/igmp/_operations/audit",
+                    "remediate": "/api/running/Audits/IPv6/igmp/_operations/remediate"
+                }
+            },
+            "L3_ip_pim": {
+                "operations": {
+                    "audit": "/api/running/Audits/IPv6/L3_ip_pim/_operations/audit",
+                    "remediate": "/api/running/Audits/IPv6/L3_ip_pim/_operations/remediate"
+                }
+            }
+        }
+    }
+}
 ```
 
 
