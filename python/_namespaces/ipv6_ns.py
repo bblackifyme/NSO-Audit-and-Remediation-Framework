@@ -17,3 +17,9 @@ class ns(object):
 
     prefix = "ipv6"
 
+    ipv6_device = 1
+    ipv6_device_ = "device"
+    ipv6_csv = 2
+    ipv6_csv_ = "csv"
+    ipv6_device_group = 0
+    ipv6_device_group_ = "device_group"

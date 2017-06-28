@@ -17,3 +17,9 @@ class ns(object):
 
     prefix = "your_audit_name_here"
 
+    your_audit_name_here_device = 1
+    your_audit_name_here_device_ = "device"
+    your_audit_name_here_csv = 2
+    your_audit_name_here_csv_ = "csv"
+    your_audit_name_here_device_group = 0
+    your_audit_name_here_device_group_ = "device_group"

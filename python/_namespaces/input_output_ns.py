@@ -17,3 +17,9 @@ class ns(object):
 
     prefix = "input_output"
 
+    input_output_device = 1
+    input_output_device_ = "device"
+    input_output_csv = 2
+    input_output_csv_ = "csv"
+    input_output_device_group = 0
+    input_output_device_group_ = "device_group"

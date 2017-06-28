@@ -38,31 +38,29 @@ def your_audit_name_here(self, kp, input, name, output):
     "Explicit is better than implicit." -- comments are encouraged :)
 
     """
+    start = (datetime.strptime(str(datetime.now().time()), date_format))
+    output.start_time = time.strftime("%H:%M:%S")
     if name == "audit":
-        start = (datetime.strptime(str(datetime.now().time()), date_format))
-        output.start_time = time.strftime("%H:%M:%S")
         with ncs.maapi.single_write_trans("ncsadmin",'python',["ncsadmin"],ip='127.0.0.1', port=ncs.NCS_PORT,path=None, src_ip='127.0.0.1', src_port=0, proto=ncs.PROTO_TCP) as t:
-                root = ncs.maagic.get_root(t)
-                #
-                # Your code goes here
-                #
-        output.result = "Your results here"
-        end = (datetime.strptime(str(datetime.now().time()), date_format))
-        output.end_time = time.strftime("%H:%M:%S")
-        output.run_time = str(end-start)
-        output.success_percent = "100%" #CHANGE to your success metric
+            root = ncs.maagic.get_root(t)
+            #
+            # Your code goes here
+            #
+            output.result = "Your results here"
+            output.success_percent = "100%" #CHANGE to your success metric
 
     elif name == "remediate":
-        start = (datetime.strptime(str(datetime.now().time()), date_format))
-        output.start_time = time.strftime("%H:%M:%S")
         with ncs.maapi.single_write_trans("ncsadmin",'python',["ncsadmin"],ip='127.0.0.1', port=ncs.NCS_PORT,path=None, src_ip='127.0.0.1', src_port=0, proto=ncs.PROTO_TCP) as t:
-                root = ncs.maagic.get_root(t)
-                #
-                # Your code goes here
-                #
-        output.result = "Your results here"
-        end = (datetime.strptime(str(datetime.now().time()), date_format))
-        output.end_time = time.strftime("%H:%M:%S")
-        output.run_time = str(end-start)
-        output.success_percent = "100%" #CHANGE to your success metric
+            root = ncs.maagic.get_root(t)
+            #
+            # Your code goes here
+            #
+            output.success_percent = "100%" #CHANGE to your success metric
+            output.result = "Your results here"
+
+    # Stop the timer now that all code is run and save end time and calc run time
+    end = (datetime.strptime(str(datetime.now().time()), date_format))
+    output.end_time = time.strftime("%H:%M:%S")
+    output.run_time = str(end-start)
+
     return output

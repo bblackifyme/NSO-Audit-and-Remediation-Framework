@@ -1,4 +1,5 @@
-"""NCS Action Package example.
+"""
+NCS Action Package example.
 
 Implements a package with actions
 (C) 2015 Tail-f Systems
@@ -35,7 +36,11 @@ class ActionHandler(Action):
             output -- output node (maagic.Node)
         """
         #TODO determine logging standards
+        self.log.info(uinfo.addr)
+        self.log.info(uinfo.usid)
+        self.log.info(uinfo.username)
 
+        output.username = uinfo.username
         if "/audits:Audits/IPv6" in str(kp):
             output = ipv6.ipv6(self, kp, input, name, output)
         else:

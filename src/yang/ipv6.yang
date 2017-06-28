@@ -17,9 +17,9 @@ module ipv6 {
         uses input_output:input_output;
         }
       // Configlet # 2
-      container L3_ip_pim {
-        uses input_output:input_output;
-        }
+    //  container L3_ip_pim {
+      //  uses input_output:input_output;
+      //  }
       }
     }
   }
