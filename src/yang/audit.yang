@@ -9,7 +9,7 @@ module Audits {
     prefix tailf;
   }
   import ipv6 { prefix ipv6; }
-  import Services { prefix Services; }
+  //import Services { prefix Services; }
 
   // import your_audit_name_here { prefix your_audit_name_here; }
   // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
@@ -18,7 +18,7 @@ module Audits {
 
   container Audits {
     uses ipv6:ipv6;
-    uses Services:Services;
+    //uses Services:Services;
 
     //  uses your_audit_name_here:your_audit_name_here;
     // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT

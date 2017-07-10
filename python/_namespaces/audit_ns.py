@@ -21,8 +21,6 @@ class ns(object):
     audits_Audits_ = "Audits"
     audits_result = 401396173
     audits_result_ = "result"
-    audits_Services = 1354439613
-    audits_Services_ = "Services"
     audits_username = 870658415
     audits_username_ = "username"
     audits_input_type = 1878066786
@@ -33,8 +31,6 @@ class ns(object):
     audits_number_audited_ = "number_audited"
     audits_csv = 2
     audits_csv_ = "csv"
-    audits_Device_group = 32263007
-    audits_Device_group_ = "Device_group"
     audits_run_time = 1050052059
     audits_run_time_ = "run_time"
     audits_device_group = 0
@@ -49,14 +45,10 @@ class ns(object):
     audits_results_ = "results"
     audits_value = 864367181
     audits_value_ = "value"
-    audits_instance = 136214150
-    audits_instance_ = "instance"
     audits_audit = 1710855485
     audits_audit_ = "audit"
     audits_inputs = 428023244
     audits_inputs_ = "inputs"
-    audits_service_instances = 1829421471
-    audits_service_instances_ = "service_instances"
     audits_start_time = 361541635
     audits_start_time_ = "start_time"
     audits_IPv6 = 1607392904

@@ -56,7 +56,7 @@ module input_output {
       leaf number_audited {
         type int64;
       }
-      
+
       list results {
         key "device";
 
@@ -78,14 +78,27 @@ module input_output {
     tailf:actionpoint audit;
     tailf:info "Remediation for the use case.";
     input {
-      leaf Device_group {
-        type string;
-        mandatory true;
-        tailf:info "NSO Device Group";
+      list inputs {
+        tailf:info "Input values for the action";
+
+        leaf input_type {
+          type enumeration {
+            enum "device_group";
+            enum "device";
+            enum "csv";
+          }
+        }
+
+        leaf value {
+          type string;
+        }
       }
     }
 
     output {
+      leaf username {
+        type string;
+      }
       leaf start_time {
         type string;
         mandatory true;
@@ -103,13 +116,15 @@ module input_output {
       }
 
       list results {
-        key device;
+        key "device";
+
         leaf device {
           type string;
         }
         leaf result {
-          type string;
+          type boolean;
         }
+
       }
       leaf success_percent {
         type string;

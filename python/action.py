@@ -9,17 +9,18 @@ See the README file for more information
 """
 from __future__ import print_function
 import sys
-import ipv6
-
-# import your_audit_name_here # Copy and change this to the name of your Python File
+from datetime import datetime
+import time
 import ncs
 import _ncs
 import _ncs.dp
 from ncs.dp import Action
 from ncs.application import Application
 from _namespaces.audit_ns import ns
+import helpers
 
-date_format = "%H:%M:%S.%f"
+DATE_FORMAT = "%H:%M:%S.%f"
+
 
 class ActionHandler(Action):
     """This class implements the dp.Action class."""
@@ -39,30 +40,16 @@ class ActionHandler(Action):
         self.log.info(uinfo.addr)
         self.log.info(uinfo.usid)
         self.log.info(uinfo.username)
-
-        output.username = uinfo.username
-        if "/audits:Audits/IPv6" in str(kp):
-            output = ipv6.ipv6(self, kp, input, name, output)
-        else:
-            # Log & return general failures
-            self.log.debug("got bad operation: {0}".format(name))
-            return _ncs.CONFD_ERR
-
-        ##################################################################
-        #                                                                #
-        #   To add your feature/use case copy the code snippet below.    #
-        #   Add it below the last elif and above the else.               #
-        #   Uncomment the block and follow the # commented instructions. #
-        #                                                                #
-        ##################################################################
-        """
-        elif str(kp) == "/audits:Audits/your_audit_name_here":
-            # Change "your_audit_name_here" to the name of the function inside your new python file
-            output = your_audit_name_here.your_audit_name_here(self, kp, input, name, output)
-            # Change the first "your_audit_name_here" to the name of your python file, & "your_audit_name_here" to the function name
-        """
-
-
+        start = (datetime.strptime(str(datetime.now().time()), DATE_FORMAT))
+        output.start_time = time.strftime("%H:%M:%S")
+        devices = helpers.build_device_list(input)
+        kp_parse = str(kp).split("/")
+        group = kp_parse[2]
+        module = kp_parse[3]
+        helpers.route(group, module, name, devices, output)
+        end = (datetime.strptime(str(datetime.now().time()), DATE_FORMAT))
+        output.end_time = time.strftime("%H:%M:%S")
+        output.run_time = str(end-start)
 
 # ---------------------------------------------
 # COMPONENT THREAD THAT WILL BE STARTED BY NCS.
