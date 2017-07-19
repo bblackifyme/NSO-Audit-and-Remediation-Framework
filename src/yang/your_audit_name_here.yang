@@ -8,7 +8,9 @@ module your_audit_name_here { // Change this to your audits name, this needs to 
   import input_output {
     prefix input_output;
   }
-  grouping your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
+
+
+  grouping your_audit_name_here {
     container your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
       tailf:info "Add description here";
       container your_sub_module_name_here { // Change this to your sub-use-cases name copy this for each new use case

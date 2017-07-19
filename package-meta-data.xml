@@ -1,6 +1,6 @@
 <ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
   <name>audit_and_remediate</name>
-  <package-version>0.2</package-version>
+  <package-version>0.3</package-version>
   <description>Python package for audit and remediation framework</description>
   <ncs-min-version>2.2</ncs-min-version>
   <component>

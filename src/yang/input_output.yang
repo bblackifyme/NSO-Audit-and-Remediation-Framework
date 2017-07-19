@@ -14,14 +14,11 @@ module input_output {
   grouping input_output {
   tailf:action audit {
     tailf:actionpoint audit;
-    tailf:info "Audit";
+    tailf:info "Input type can be 'device_group', 'device' or 'csv'";
 
     // DO NOT CHANGE THE INPUTS AND OUTPUTS
     input {
-
-
       list inputs {
-        tailf:info "Input values for the action";
 
         leaf input_type {
           type enumeration {
@@ -76,7 +73,7 @@ module input_output {
   // DO NOT CHANGE THE ACTION NAMES OR INPUTS & OUTPUTS
   tailf:action remediate {
     tailf:actionpoint audit;
-    tailf:info "Remediation for the use case.";
+    tailf:info "Remediation, Input type can be 'device_group', 'device' or 'csv'";
     input {
       list inputs {
         tailf:info "Input values for the action";

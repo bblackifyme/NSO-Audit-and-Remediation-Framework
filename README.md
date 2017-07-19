@@ -1,6 +1,6 @@
 # NSO Audit & Remediation Framework
 
-> Currently a WORK IN PROGRESS version 0.2
+> Currently a WORK IN PROGRESS version 0.3
 
 ## Package Description
 
@@ -26,23 +26,25 @@ The package enforces a standard interface for all audit and remediation use case
 
 Output includes time started, ended, run time, results and percent passed.
 
-The results field is to be a standardized form - TBD per design
+results returned are a list type with fields of: device_name, result (True = compliant, False = non-compliant),
 EXAMPLES:
 
 ### CLI example
-*TO BE UPDATED*
 
 CLI example to view available audits and remediations:
 
-```bash
+```
 branblac@ncs# Audits ?
 Possible completions:
   IPv6
+
+branblac@ncs# Audits IPv6 ?
+Possible completions:
+  igmp   audit to check that ip igmp v3 set on VLAN 10 and gi0/0/0.10
 ```
 
 
 ### REST Payload
-*TO BE UPDATED*
 
 REST example to execute audits and remediations:
 
@@ -75,7 +77,7 @@ Result:
 
 ## Development Documentation
 
-The documentation in this README provides details into the packages workings, for documentation on developing a new feature or use case please see the contribution guide (link to be added)
+The documentation in this README provides details into the packages workings, for documentation on developing a new feature or use case please see the contribution guide in the docs folder.
 
 ### YANG Model
 
@@ -93,17 +95,12 @@ The Framework Yang consists of 3 pieces.
 
 The Python directory of the project contains the framework code and use case code.
 
-The framework is contained inside `action.py` and is the code that is registered inside NSO. When audits & remediations are called this module is called.
+The framework is contained inside `action.py` and is the code that is registered inside NSO. When audits & remediations are called in NSO this module is executed.
 
-Inside the `cb_action` method of the `ActionHandler` class is where the user module is registered.
+Inside the `cb_action` method of the `ActionHandler` class is where the user modules are dynamically registered. NSO will determine which audit module was called and then route that to a object with the methods defined by the creator for that audit. ie what config needs to be audited.
 
-We register the user code by adding an elif block to check what use case is being called. We do this by checking the keypath of the request:
+The objects are created using a simple factory pattern. The factory loops over all the concrete classes present in the modules package(folder) and creates an object of that class. Then adds it to a nested dictionary that has the structure of { Group_name : { Module_name : Module_object } }. The group name is determined by the classes self.group attribute.
 
-```python
-if str(kp) == "/audits:Audits/IPv6":
-        output = ipv6.ipv6(self, kp, input, name, output)
-```
-
-This example is checking for the "IPv6" use case. We then set the output to the returned output object from the use case code. The use case takes the input and executes its audit or remediate functions per the use case requirements and sets the results.
+Then to route a action request from a user NSO just parses the XPATH of where the request was called from to get the group and module names the calls the dictionary keys for that group and module tog et the implemented object.  Then it calls either audit or remediate method of that object depending on what the user selected.
 
 Once complete. The results are returned to NSO and returned to the user.

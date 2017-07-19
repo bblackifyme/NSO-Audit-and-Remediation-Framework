@@ -8,7 +8,8 @@ module ipv6 {
   import input_output {
     prefix input_output;
   }
-  grouping ipv6 {
+  
+   grouping ipv6 {
     container IPv6 {
       tailf:info "IPv6 related audits";
       // Configlet # 1
@@ -21,5 +22,6 @@ module ipv6 {
       //  uses input_output:input_output;
       //  }
       }
+
     }
   }

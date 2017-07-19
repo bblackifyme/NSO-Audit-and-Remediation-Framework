@@ -1,3 +1,20 @@
+"""
+Title:
+    - ipv6_igmp_module
+
+Developed by:
+    - Brandon Black branblac@cisco.com
+    - Jamie McGregor jamcgreg@cisco.com
+    - David Laban dlaban@cisco.com
+    - Callum Corneille cc@cisco.com
+    - Elliot Wise elwise@cisco.com
+
+Description:
+    - Module that audits Ipv6 config for desktop gateways.
+    Checks that VLAN 10 for campus, and ge0/0/0.10 for branch
+    have ip igmp version 3 configured.
+
+"""
 from .abs_audit import AbsAudit
 import ncs
 
@@ -24,6 +41,7 @@ class Igmp(AbsAudit):
                         result = output.results.create()
                         result.result = False
                         result.device = box.name
+                        non_compliant_boxs.append(box.name)
                 # Check Branch config which is on GE 0/0/0.10
                 elif "0/0/0.10" in box.config.ios__interface.GigabitEthernet:
                     # Check igmp version

@@ -12,15 +12,13 @@ Follow this guide for developing a new use case with in the Audit and Remediatio
 ## High Level Steps:
 1. [Git clone the repo](#git-clone-the-repo)
 2. [Create a new feature branch](#create-a-new-feature-branch)
-3. Copy and rename the yang template
-4. Modify and save yang file
-5. Register the new module in the audit.yang file
-5. Copy and rename the python template
-6. Modify and save python file
-7. Register the new module in the actions.py file
-9. Test locally!!!
-10. Merge request into master
-11. Code review!
+3. [Copy and rename the yang template](#copy-and-rename-the yang-template)
+4. [Modify and save yang file](#modify-and-save-yang-file)
+5. [Copy and rename the python template](#copy-and-rename-the-python-template)
+6. [Modify and save python file](#modify-and-save-python-file)
+9. [Test locally!!!](#test-locally!!!)
+10. [Merge request into master](#merge-request-into-master)
+11. [Code review!](#code-review!)
 12. CI deployment to stage and regression tests
 13. CI Deploy to production
 
@@ -36,7 +34,9 @@ Only modify the files for your project! If you remove or modify files and code t
 
 `git branch your_audit_name_here`
 
-## Copy and rename the yang template
+
+
+## For a new audit Group -  Copy and rename the yang template
 
 Either do this via your laptops UI or via command line. Save the name to the value you will use for all "your_audit_name_here" changes.
 
@@ -64,7 +64,11 @@ module your_audit_name_here { // Change this to your audits name, this needs to 
   import input_output {
     prefix input_output;
   }
-  grouping your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
+  import Audits {
+    prefix audit;
+  }
+
+  augment /audit:Audits {
     container your_audit_name_here { // Change this to your audits name, this needs to be the same everywhere
       tailf:info "Add description here";
       container your_sub_module_name_here { // Change this to your sub-use-cases name copy this for each new use case
@@ -79,52 +83,30 @@ module your_audit_name_here { // Change this to your audits name, this needs to 
       }
     }
   }
+
 ```
 
 Save the file.
 
-## Register the new module in the audit.yang file
+## For a new audit module -  Copy and rename the yang template
 
-Open up the `audit.yang` file. **DO NOT RENAME THIS FILE**
+Since modules belong to audit groups, we can leverage an existing group YANG and just add in a new module:.
 
-> IMPORTANT! **DO NOT** change anything not instructed to do in this guide. Any modules with extra changes **WILL BE REJECTED AT CODE REVIEW** improvements are always appreciated, but should not be made from a module :)
+Navigate to the appropriate groups .yang file and add the module name and description! Its that easy!
 
-Follow the instructions in the files comments, using ipv6 as an example use case that has been completed.
-
-```javascript
-// Please note, DO NOT CHANGE ANYTHING OTHER THAN ADDING YOUR LINES.
-// If changes are made there will be "merge conflicts" and you will have to correct what you did!
-
-module Audits {
-  namespace "http://example.com/actions";
-  prefix audits;
-
-  import tailf-common {
-    prefix tailf;
-  }
-  import ipv6 { prefix ipv6; }
-
-  // import your_audit_name_here { prefix your_audit_name_here; }
-  // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
-
-  description "Module to store audit actions";
-
-  container Audits {
-    uses ipv6:ipv6;
-
-    // uses your_audit_name_here:your_audit_name_here;
-    // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
-  }
+```
+container your_sub_module_2_name_here { // Change this to your second sub-use-cases name copy this for each
+  tailf:info "Add description here";
+  uses input_output:input_output;
 }
 ```
 
-Save the file.
 
 ## Copy and rename the python template
 
-Either do this via your laptops UI or via command line. Save the name to the value you will use for all "your_audit_name_here" changes.
+Either do this via your laptops UI or via command line. Save the name to the value you will use for all "your_module_name_here" changes.
 
-Files located at `/Audit-and-Remediation-Framework/python/`
+Files located at `/Audit-and-Remediation-Framework/python/modules`
 
 Keep the new file in this location.
 
@@ -135,90 +117,29 @@ Add your audit code! This is where you have freedom to build your code as you de
 However, there are a few requirements ;)
 
 1. You must use doc-strings!
-2. You must have an "audit" and "remediate" function (this is for readability and consistency, but feel free to call other functions).
+2. You must have an "audit" and "remediate" method (this is for readability and consistency, but feel free to call other functions).
 3. Please comment, others might not know what you are doing.
 4. Follow the module doc-string format. Feel free to add after, but you must include it.
 
-A transaction into the NSO cDB, timers, and total run time calculations is pre-created in the template for you for both audits and remediations:
+All you have to do is write your audit and remediate methods and populate the output object values!
+
+a note: you need to create your own NSO transaction
 
 ```python
-if name == "audit":
-      start = (datetime.strptime(str(datetime.now().time()), date_format))
-      output.start_time = time.strftime("%H:%M:%S")
-      with ncs.maapi.single_write_trans("ncsadmin",'python',["ncsadmin"],ip='127.0.0.1', port=ncs.NCS_PORT,path=None, src_ip='127.0.0.1', src_port=0, proto=ncs.PROTO_TCP) as t:
-              root = ncs.maagic.get_root(t)
-              #
-              # Your code goes here
-              #
-      output.result = "Your results here"
-      end = (datetime.strptime(str(datetime.now().time()), date_format))
-      output.end_time = time.strftime("%H:%M:%S")
-      output.run_time = str(end-start)
-      output.success_percent = "100%" #CHANGE to your success metric
+from .abs_audit import AbsAudit
+
+class your_module_name_here(AbsAudit):
+
+    def __init__(self):
+        self.group = "The group name you used in yang"
+
+    def audit(self, devices, output):
+        print (self.name, " is auditing")
+
+    def remediate(self, devices, output):
+        print (self.name, " is remediating")
 ```
 
-The template is for quick starting, Code Review WILL NOT enforce the use of this structure, but will involve detailed review.
-
-## Register the new module in the actions.py file
-
-actions.py is the main entry for NSO into the framework. The input object passed into it provides details into which use-case and sub-use-case is being called. We need to register and map our new use case in this file so that NSO knows when to run our new code.
-
-Start by importing the python module (file) that you just updated into the actions.py module (ipv6 is an example):
-
-```python
-from __future__ import print_function
-import sys
-import ipv6
-
-# import your_audit_name_here # Copy and change this to the name of your Python File
-```
-
-
-Now we are ready to map the our code to the action inside NSO. We do this by checking the "Keypath" of the triggered event. NSO provides us the keypath as an input into the ActionHandler class where the mapping is done:
-
-```python
-class ActionHandler(Action):
-    """This class implements the dp.Action class."""
-
-  @Action.action
-    def cb_action(self, uinfo, name, kp, input, output):
-        """Called when the actionpoint is invoked.
-
-        The function is called with:
-            uinfo -- a UserInfo object
-            name -- the tailf:action name (string)
-            kp -- the keypath of the action (HKeypathRef)
-            input -- input node (maagic.Node)
-            output -- output node (maagic.Node)
-        """
-        #TODO determine logging standards
-
-        if "/audits:Audits/IPv6" in str(kp):
-            output = ipv6.ipv6(self, kp, input, name, output)
-        else:
-            # Log & return general failures
-            self.log.debug("got bad operation: {0}".format(name))
-            return _ncs.CONFD_ERR
-
-        ##################################################################
-        #                                                                #
-        #   To add your feature/use case copy the code snippet below.    #
-        #   Add it below the last elif and above the else.               #
-        #   Uncomment the block and follow the # commented instructions. #
-        #                                                                #
-        ##################################################################
-        """
-        elif str(kp) == "/audits:Audits/your_audit_name_here":
-            # Change "your_audit_name_here" to the name of the function inside your new python file
-            output = your_audit_name_here.your_audit_name_here(self, kp, input, name, output)
-            # Change the first "your_audit_name_here" to the name of your python file, & "your_audit_name_here" to the function name
-        """
-
-```
-
-We register our new use case by following the instructions inside the template.
-
-**REMEMBER TO BE CONSISTENT with your_audit_name_here naming. **
 
 Save the file.
 

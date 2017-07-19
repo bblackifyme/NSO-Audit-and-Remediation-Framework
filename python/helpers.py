@@ -32,7 +32,10 @@ def build_device_list(input):
 
 def route(group, module, name, devices, output):
     """
-    create the factories and audits, then return the object for the appropriate module.
+    Create the factories and audits, then return the object for the appropriate module.
+
+    Does this by calling create_modules()
+    Then from the returned dictionary, callign the appropriate group and module.
     """
     module_list = create_modules()
     return module_list[group][module].route_action(name, devices, output)

@@ -35,6 +35,9 @@ class ActionHandler(Action):
             kp -- the keypath of the action (HKeypathRef)
             input -- input node (maagic.Node)
             output -- output node (maagic.Node)
+
+        The Audit framework mapping is handled by the helpers.route function.
+        For info on our the module mapping works see helpers.py
         """
         #TODO determine logging standards
         self.log.info(uinfo.addr)
