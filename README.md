@@ -87,7 +87,6 @@ The Framework Yang consists of 3 pieces.
 
 1. `audit.yang` - Wrapper model for all audits. New use cases need to be added into this YANG to register them in NSO.
 2. `input_output.yang` - Yang grouping to enforce standard input and output fields for all use cases
-
 3. `your_audit_name_here.yang` - Template (ie name changes) that registers the new use case audit & remediate actions into the framework. Imports and uses the `input_output.yang` model.
 
 
