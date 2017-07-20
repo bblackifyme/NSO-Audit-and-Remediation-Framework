@@ -2,6 +2,8 @@
 
 > Currently a WORK IN PROGRESS version 0.3
 
+This readme gives a framework overview, for development/contribution guides see the [Contribution Guide](doc/CONTRIBUTING.md)
+
 ## Package Description
 
 This project contains the framework and source code for developing modular Audit and Remediation code for NSO.
