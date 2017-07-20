@@ -134,10 +134,32 @@ class your_module_name_here(AbsAudit):
         self.group = "The group name you used in yang"
 
     def audit(self, devices, output):
-        print (self.name, " is auditing")
+        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
+            root = ncs.maagic.get_root(trans)
+        """
+        Per inputed device add the audit results as follows:
+        
+        result = output.results.create()
+        result.result = True
+        result.device = (device name from input)
+        """
 
     def remediate(self, devices, output):
-        print (self.name, " is remediating")
+        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
+            root = ncs.maagic.get_root(trans)
+            ## Bunch of remediation code here
+            trans.apply() ## Apply the changes!
+        """
+        If your transaction succeeds than we know all devices succeeded :)
+        So loop over all inputs and assign as true, or... do a transaction per device (warning, that is very slow!)
+
+        Sample setting output:
+
+        for device in devices:
+          result = output.results.create()
+          result.result = True
+          result.device = (device name from input)
+        """
 ```
 
 
@@ -167,25 +189,21 @@ reload-result {
 
 You are now ready to test your code functionality! Use your preferred method, CLI is given.
 
-```shell
-branblac@ncs# Audits ?                                 
-Possible completions:
-  IPv6   IPv6 related audits
-branblac@ncs# Audits IPv6 ?
-Possible completions:
-  L3_ip_pim   
-  igmp        audit to check that ip igmp v3 set on VLAN 10 and gi0/0/0.10
-branblac@ncs# Audits IPv6 igmp ?
-Possible completions:
-  audit       Audit
-  remediate   Remediation for the use case.
-branblac@ncs# Audits IPv6 igmp audit ?
-Possible completions:
-  Device_group   Audit for the use case.
-branblac@ncs# Audits IPv6 igmp audit Device_group dt_gw
-start_time 23:00:44
-end_time 23:00:44
-run_time 0:00:00.038511
-result Non-compliant devices: ['demo-0', 'demo-1']
+```
+branblac@ncs# Audits IPv6 igmp audit inputs { input_type device value ios-0 } inputs { input_type device value demo-0 }
+start_time 20:29:29
+end_time 20:29:29
+run_time 0:00:00.022778
+number_audited 2
+results {
+    device ios-0
+    result false
+}
+results {
+    device demo-0
+    result false
+}
 success_percent 0.0
+branblac@ncs#
+
 ```

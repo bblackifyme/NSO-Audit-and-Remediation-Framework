@@ -24,10 +24,32 @@ from .abs_audit import AbsAudit
 class YourModuleNameHere(AbsAudit):
 
     def __init__(self):
-        self.group = "IPv6"
+        self.group = "your_audit_name_here"
 
     def audit(self, devices, output):
-        pass # YOUR AUDIT CODE HERE!
+        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
+            root = ncs.maagic.get_root(trans)
+            """
+            Per inputed device add the audit results as follows:
+
+            result = output.results.create()
+            result.result = True
+            result.device = (device name from input)
+            """
 
     def remediate(self, devices, output):
-        pass # YOUR REMDIATE CODE HERE!
+        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
+            root = ncs.maagic.get_root(trans)
+            ## Bunch of remediation code here
+            trans.apply() ## Apply the changes!
+            """
+            If your transaction succeeds than we know all devices succeeded :)
+            So loop over all inputs and assign as true, or... do a transaction per device (warning, that is very slow!)
+
+            Sample setting output:
+
+            for device in devices:
+              result = output.results.create()
+              result.result = True
+              result.device = (device name from input)
+            """
