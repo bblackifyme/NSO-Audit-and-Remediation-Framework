@@ -15,10 +15,12 @@ Description:
     have ip igmp version 3 configured.
 
 """
-from .abs_audit import AbsAudit
 import ncs
+from .abs_audit import AbsAudit
+
 
 class Igmp(AbsAudit):
+    """ NSO A&R Module to audit IGMP config. Checks for VLAN10 or Ge0/0/0.10 ip igmp version3 """
 
     def __init__(self):
         self.group = "IPv6"
@@ -26,7 +28,7 @@ class Igmp(AbsAudit):
 
     def audit(self, devices, output):
         non_compliant_boxs = []
-        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin'], db=ncs.RUNNING, ip='127.0.0.1', port=ncs.NCS_PORT, proto=ncs.PROTO_TCP) as trans:
+        with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
             root = ncs.maagic.get_root(trans)
             total = round(len(devices), 2)
             for box in devices:

@@ -104,7 +104,13 @@ container your_sub_module_2_name_here { // Change this to your second sub-use-ca
 
 ## Copy and rename the python template
 
-Either do this via your laptops UI or via command line. Save the name to the value you will use for all "your_module_name_here" changes.
+Copy and rename the file  "your_module_name_here.py"
+
+Either do this via your laptops UI or via command line.
+
+Follow the naming convention of:
+`groupName_moduleName_module.py` the module *MUST* end with `_module.py`
+
 
 Files located at `/Audit-and-Remediation-Framework/python/modules`
 
@@ -138,7 +144,7 @@ class your_module_name_here(AbsAudit):
             root = ncs.maagic.get_root(trans)
         """
         Per inputed device add the audit results as follows:
-        
+
         result = output.results.create()
         result.result = True
         result.device = (device name from input)

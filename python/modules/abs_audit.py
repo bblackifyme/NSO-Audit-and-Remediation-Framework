@@ -18,9 +18,9 @@ class AbsAudit():
             return self.remediate(devices, output)
 
     @abc.abstractmethod
-    def audit(self, devices):
+    def audit(self, devices, output):
         pass
 
     @abc.abstractmethod
-    def remediate(self, devices):
+    def remediate(self, devices, output):
         pass

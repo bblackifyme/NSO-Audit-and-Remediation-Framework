@@ -1,0 +1,27 @@
+module your_group_name_here { // Change this to your audits name, this needs to be the same everywhere
+  namespace "http://example.com/your_group_name_here"; // Change "your_group_name_here" to your audits name, this needs to be the same everywhere
+  prefix your_group_name_here; // Change this to your audits name, this needs to be the same everywhere
+
+  import tailf-common {
+    prefix tailf;
+  }
+  import input_output {
+    prefix input_output;
+  }
+
+
+  grouping your_group_name_here {
+    container your_group_name_here { // Change this to your audits name, this needs to be the same everywhere
+      tailf:info "Add description here";
+      container your_module_name_here { // Change this to your sub-use-cases name copy this for each new use case
+        tailf:info "Add description here";
+        uses input_output:input_output;
+      }
+      container your_module_2_name_here { // Change this to your second sub-use-cases name copy this for each new use case
+        tailf:info "Add description here";
+        uses input_output:input_output;
+      }
+
+      }
+    }
+  }

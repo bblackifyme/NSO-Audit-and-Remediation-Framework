@@ -11,15 +11,15 @@ module Audits {
   import ipv6 { prefix ipv6; }
   //import Services { prefix Services; }
 
-  // import your_audit_name_here { prefix your_audit_name_here; }
-  // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
+  // import your_group_name_here { prefix your_group_name_here; }
+  // Add the above line but replace "your_group_name_here" with your audits name. BE CONSISTENT
 
   description "Module to store audit actions";
 
   container Audits {
     uses ipv6:ipv6;
 
-    //  uses your_audit_name_here:your_audit_name_here;
-    // Add the above line but replace "your_audit_name_here" with your audits name. BE CONSISTENT
+    //  uses your_group_name_here:your_group_name_here;
+    // Add the above line but replace "your_group_name_here" with your audits name. BE CONSISTENT
   }
 }

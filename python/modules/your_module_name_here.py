@@ -22,9 +22,28 @@ import ncs
 from .abs_audit import AbsAudit
 
 class YourModuleNameHere(AbsAudit):
+    """ Module class for YOUR_MODULE_NAME_HERE.
+        The class msut implement "audit" & "remediate" methods.
 
+        When called, NSO will pass the audit or remediate methods the parameters:
+        self: an NSO object for the action. Can be used for logging with self.log.info()
+        devices: A python list of device names to take action on (audit or remediate)
+        output: and NSO object that stores the programs results.
+
+        output details:
+            attributes:
+                results: type == ncsList. Add records of devices results
+                    methods:
+                        create: use output.results.create() to create new record of device results.
+                                This method returns a results object.
+                                The results object has attributes of:
+                                    result: boolean (True if compliant, False if not)
+                                    device: string of devices name
+
+    """
     def __init__(self):
-        self.group = "your_audit_name_here"
+        self.group = "your_group_name_here"
+        self.name = "your_module_name_here"
 
     def audit(self, devices, output):
         with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:

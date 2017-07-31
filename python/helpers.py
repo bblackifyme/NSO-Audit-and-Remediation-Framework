@@ -13,7 +13,7 @@ def build_device_list(input):
     devices = []
     for item in input.inputs:
         if item.input_type == "device_group":
-            with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin'], db=ncs.RUNNING, ip='127.0.0.1', port=ncs.NCS_PORT, proto=ncs.PROTO_TCP) as trans:
+            with ncs.maapi.single_write_trans('ncsadmin', 'python', groups=['ncsadmin']) as trans:
                 root = ncs.maagic.get_root(trans)
                 group = root.devices.device_group[item.value].device_name
                 for box in group:
@@ -43,7 +43,7 @@ def route(group, module, name, devices, output):
 def create_modules():
     """
     Function that builds all available factorys from modules.
-    and buidls all audits from the factory objects created.
+    and builds all audits from the factory objects created.
 
     It returns a dictionary of all factories and their modules.
     """
