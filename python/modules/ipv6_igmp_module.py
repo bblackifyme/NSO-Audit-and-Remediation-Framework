@@ -2,13 +2,6 @@
 Title:
     - ipv6_igmp_module
 
-Developed by:
-    - Brandon Black branblac@cisco.com
-    - Jamie McGregor jamcgreg@cisco.com
-    - David Laban dlaban@cisco.com
-    - Callum Corneille cc@cisco.com
-    - Elliot Wise elwise@cisco.com
-
 Description:
     - Module that audits Ipv6 config for desktop gateways.
     Checks that VLAN 10 for campus, and ge0/0/0.10 for branch

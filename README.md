@@ -1,18 +1,15 @@
 # NSO Audit & Remediation Framework
 
-> Currently a WORK IN PROGRESS version 0.3
-
-This readme gives a framework overview, for development/contribution guides see the [Contribution Guide](doc/CONTRIBUTING.md)
 
 ## Package Description
 
 This project contains the framework and source code for developing modular Audit and Remediation code for NSO.
 
 The project provides standardized templates and guidelines for developing a new audit and remediate use case.
-It is packages such that a developer or network engineer can easy leverage the templates and simply leverage "Add your code here" sections to add new features. Once complete, the new feature goes through code review and system regression testing before being moved onto prod NSO.
+It is packages such that a developer or network engineer can easy leverage the templates and simply leverage "Add your code here" sections to add new features.
 
 Developers:
-Brandon Black branblac@cisco.com
+Brandon Black bblackifyme@gmail.com
 
 ### Development Environment
 

@@ -10,8 +10,7 @@ Follow this guide for developing a new use case with in the Audit and Remediatio
 
 
 ## High Level Steps:
-1. [Git clone the repo](#git-clone-the-repo)
-2. [Create a new feature branch](#create-a-new-feature-branch)
+
 3. [Copy and rename the yang template](#copy-and-rename-the yang-template)
 4. [Modify and save yang file](#modify-and-save-yang-file)
 5. [Copy and rename the python template](#copy-and-rename-the-python-template)
@@ -22,17 +21,6 @@ Follow this guide for developing a new use case with in the Audit and Remediatio
 12. CI deployment to stage and regression tests
 13. CI Deploy to production
 
-## Git clone the repo
-
-`git clone https://wwwin-gitlab-sjc.cisco.com/NWS-NSO-Packages/Audit-and-Remediation-Framework.git`
-
-## Create a new feature branch
-
-Create a new branch that will include your new use case.
-
-Only modify the files for your project! If you remove or modify files and code that is not apart of this guide your development will be **rejected**!
-
-`git branch your_audit_name_here`
 
 
 
@@ -186,7 +174,7 @@ Then cd into the src dir and run `make`, you should see 0 compile errors. If the
 Next, log into you NSO CLI `ncs_cli -C` and issue a `packages reload` again, the package should not produce errors. If so, debug the yang.
 
 ```bash
-branblac@ncs# branblac@ncs# packages reload
+name@ncs# branblac@ncs# packages reload
 reload-result {
     package audit_and_remediate
     result true
@@ -196,7 +184,7 @@ reload-result {
 You are now ready to test your code functionality! Use your preferred method, CLI is given.
 
 ```
-branblac@ncs# Audits IPv6 igmp audit inputs { input_type device value ios-0 } inputs { input_type device value demo-0 }
+name@ncs# Audits IPv6 igmp audit inputs { input_type device value ios-0 } inputs { input_type device value demo-0 }
 start_time 20:29:29
 end_time 20:29:29
 run_time 0:00:00.022778
@@ -210,6 +198,6 @@ results {
     result false
 }
 success_percent 0.0
-branblac@ncs#
+name@ncs#
 
 ```
