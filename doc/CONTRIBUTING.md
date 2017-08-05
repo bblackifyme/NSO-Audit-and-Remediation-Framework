@@ -174,7 +174,7 @@ Then cd into the src dir and run `make`, you should see 0 compile errors. If the
 Next, log into you NSO CLI `ncs_cli -C` and issue a `packages reload` again, the package should not produce errors. If so, debug the yang.
 
 ```bash
-name@ncs# branblac@ncs# packages reload
+branblac@ncs# branblac@ncs# packages reload
 reload-result {
     package audit_and_remediate
     result true
@@ -184,7 +184,7 @@ reload-result {
 You are now ready to test your code functionality! Use your preferred method, CLI is given.
 
 ```
-name@ncs# Audits IPv6 igmp audit inputs { input_type device value ios-0 } inputs { input_type device value demo-0 }
+branblac@ncs# Audits IPv6 igmp audit inputs { input_type device value ios-0 } inputs { input_type device value demo-0 }
 start_time 20:29:29
 end_time 20:29:29
 run_time 0:00:00.022778
@@ -198,6 +198,6 @@ results {
     result false
 }
 success_percent 0.0
-name@ncs#
+branblac@ncs#
 
 ```

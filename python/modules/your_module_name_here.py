@@ -10,8 +10,7 @@ Please include the following template for the top level docstring:
 Title:
     - your_module_name_here
 
-Developed by:
-    - Your name yourCec@cisco.com
+
 
 Description:
     - High Level overview of what the audit does
